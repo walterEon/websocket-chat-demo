@@ -21,7 +21,6 @@ Este proyecto demuestra cómo implementar comunicación bidireccional en tiempo 
 - Node.js
 - Express.js
 - WebSocket (biblioteca ws)
-- CORS
 
 **Frontend:**
 - React 19
