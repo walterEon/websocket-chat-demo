@@ -14,7 +14,6 @@ const UserList = ({ users, clientId, onUsernameChange }) => {
 
     return (
         <div className="sidebar">
-            {/* Cambiar nombre - ARRIBA */}
             <div className="username-section">
                 <h4>Cambiar nombre</h4>
                 <form onSubmit={handleUsernameChange}>
@@ -31,7 +30,6 @@ const UserList = ({ users, clientId, onUsernameChange }) => {
                 </form>
             </div>
 
-            {/* Usuarios conectados - ABAJO */}
             <div className="users-section">
                 <h3>Usuarios Conectados ({users.length})</h3>
                 <ul className="user-list">

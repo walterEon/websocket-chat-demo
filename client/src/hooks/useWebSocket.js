@@ -1,8 +1,6 @@
-// client/src/hooks/useWebSocket.js - VERSIÓN SIMPLE SIN STRICTMODE
 import { useState, useEffect, useRef, useCallback } from 'react';
 
 export const useWebSocket = (url) => {
-    const [socket, setSocket] = useState(null);
     const [isConnected, setIsConnected] = useState(false);
     const [messages, setMessages] = useState([]);
     const [users, setUsers] = useState([]);
@@ -52,7 +50,6 @@ export const useWebSocket = (url) => {
     }, [username, addSystemMessage]);
 
     const connect = useCallback(() => {
-        // Prevenir múltiples conexiones
         if (socketRef.current && socketRef.current.readyState !== WebSocket.CLOSED) {
             return;
         }
@@ -63,7 +60,6 @@ export const useWebSocket = (url) => {
             
             ws.onopen = () => {
                 setIsConnected(true);
-                setSocket(ws);
                 addSystemMessage('Conectado al servidor');
             };
 
@@ -74,10 +70,8 @@ export const useWebSocket = (url) => {
 
             ws.onclose = () => {
                 setIsConnected(false);
-                setSocket(null);
                 addSystemMessage('Conexión perdida. Reconectando...');
                 
-                // Reconectar después de 3 segundos, pero solo si no hay timeout activo
                 if (!reconnectTimeoutRef.current) {
                     reconnectTimeoutRef.current = setTimeout(() => {
                         reconnectTimeoutRef.current = null;
@@ -93,7 +87,7 @@ export const useWebSocket = (url) => {
         } catch (error) {
             addSystemMessage('Error al conectar al servidor');
         }
-    }, [url]); // Solo dependencia de URL
+    }, [url]);
 
     const sendMessage = useCallback((message) => {
         if (socketRef.current && isConnected && message.trim()) {
@@ -127,7 +121,7 @@ export const useWebSocket = (url) => {
                 socketRef.current = null;
             }
         };
-    }, []); // Array vacío - solo ejecutar una vez
+    }, []);
 
     return {
         isConnected,
